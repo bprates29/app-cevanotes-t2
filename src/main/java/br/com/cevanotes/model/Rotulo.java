@@ -1,6 +1,7 @@
 package br.com.cevanotes.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Rotulo {
     private Integer id;
@@ -68,5 +69,30 @@ public class Rotulo {
 
     public void setDataCadastro(LocalDate dataCadastro) {
         this.dataCadastro = dataCadastro;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Rotulo rotulo = (Rotulo) o;
+        return Double.compare(teorAlcoolico, rotulo.teorAlcoolico) == 0 && Objects.equals(nome, rotulo.nome) && Objects.equals(estilo, rotulo.estilo) && Objects.equals(cervejaria, rotulo.cervejaria) && Objects.equals(dataCadastro, rotulo.dataCadastro);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, estilo, teorAlcoolico, cervejaria, dataCadastro);
+    }
+
+
+    @Override
+    public String toString() {
+        return "Rotulo{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", estilo='" + estilo + '\'' +
+                ", teorAlcoolico=" + teorAlcoolico +
+                ", cervejaria='" + cervejaria + '\'' +
+                ", dataCadastro=" + dataCadastro +
+                '}';
     }
 }

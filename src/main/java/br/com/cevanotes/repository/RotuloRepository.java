@@ -50,4 +50,11 @@ public class RotuloRepository {
                         .bindBean(r)
                         .execute());
     }
+
+    public void delete(int id) {
+        dataSource.useHandle(handle ->
+                handle.createUpdate("DELETE FROM rotulos WHERE id = :id")
+                        .bind("id", id)
+                        .execute());
+    }
 }
