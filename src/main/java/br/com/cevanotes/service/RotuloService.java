@@ -55,21 +55,19 @@ public class RotuloService {
     }
 
     private void aplicarAtualizacoes(Rotulo rotulo, RotuloDTO dto) {
-        if (dto.getNome() != null) {
+        if (dto.getNome() != null && !dto.getNome().isBlank()) {
             rotulo.setNome(dto.getNome());
         }
-        if (dto.getEstilo() != null) {
+        if (dto.getEstilo() != null && !dto.getEstilo().isBlank()) {
             rotulo.setEstilo(dto.getEstilo());
         }
         if (dto.getTeorAlcoolico() > 0) {
             rotulo.setTeorAlcoolico(dto.getTeorAlcoolico());
         }
-        if (dto.getCervejaria() != null) {
+        if (dto.getCervejaria() != null && !dto.getCervejaria().isBlank()) {
             rotulo.setCervejaria(dto.getCervejaria());
         }
 
         rotulo.setDataCadastro(LocalDate.now());
     }
-
-
 }

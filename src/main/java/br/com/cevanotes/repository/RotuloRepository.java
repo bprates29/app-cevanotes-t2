@@ -38,8 +38,8 @@ public class RotuloRepository {
                         .one());
     }
 
-    public int update(Rotulo r) {
-        return dataSource.withHandle(handle ->
+    public void update(Rotulo r) {
+        dataSource.withHandle(handle ->
                 handle.createUpdate("UPDATE rotulos SET " +
                                 "nome = :nome, " +
                                 "estilo = :estilo, " +
