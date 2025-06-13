@@ -3,6 +3,7 @@ package br.com.cevanotes.service;
 import br.com.cevanotes.dto.RotuloDTO;
 import br.com.cevanotes.model.Rotulo;
 import br.com.cevanotes.repository.RotuloRepository;
+import br.com.cevanotes.utils.RotuloFixtures;
 import io.javalin.http.NotFoundResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,6 +22,8 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import static br.com.cevanotes.utils.RotuloFixtures.ID_ROTULO;
+import static br.com.cevanotes.utils.RotuloFixtures.buildRotulo;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -116,7 +119,6 @@ class RotuloServiceTest {
     void testNaoAtualizarCamposQuandoDTOVazio(
             String nomeCenario, String nome, String estilo, double teorAlcoolico, String cervejaria
     ) {
-        var idExistente = 2;
 
         RotuloDTO dto = new RotuloDTO();
         dto.setNome(nome);
@@ -124,15 +126,10 @@ class RotuloServiceTest {
         dto.setTeorAlcoolico(teorAlcoolico);
         dto.setCervejaria(cervejaria);
 
-        Rotulo existente = new Rotulo();
-        existente.setId(idExistente);
-        existente.setNome("Antigo");
-        existente.setEstilo("Antigo");
-        existente.setTeorAlcoolico(5.0);
-        existente.setCervejaria("Antiga");
+        Rotulo existente = buildRotulo();
 
         var expectedRotulo = new Rotulo(
-                idExistente,
+                ID_ROTULO,
                 existente.getNome(),
                 existente.getEstilo(),
                 existente.getTeorAlcoolico(),
@@ -140,10 +137,10 @@ class RotuloServiceTest {
                 LocalDate.now()
         );
 
-        when(repository.findById(idExistente)).thenReturn(Optional.of(existente));
+        when(repository.findById(ID_ROTULO)).thenReturn(Optional.of(existente));
         doNothing().when(repository).update(expectedRotulo);
 
-        var atualizado = service.atualizar(idExistente, dto);
+        var atualizado = service.atualizar(ID_ROTULO, dto);
 
         assertEquals(expectedRotulo, atualizado);
         assertEquals(expectedRotulo.getId(), atualizado.getId());

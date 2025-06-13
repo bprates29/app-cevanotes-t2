@@ -1,5 +1,7 @@
 package br.com.cevanotes.dto;
 
+import java.util.Objects;
+
 public class RotuloDTO {
     private String nome;
     private String estilo;
@@ -36,5 +38,27 @@ public class RotuloDTO {
 
     public void setCervejaria(String cervejaria) {
         this.cervejaria = cervejaria;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        RotuloDTO rotuloDTO = (RotuloDTO) o;
+        return Double.compare(teorAlcoolico, rotuloDTO.teorAlcoolico) == 0 && Objects.equals(nome, rotuloDTO.nome) && Objects.equals(estilo, rotuloDTO.estilo) && Objects.equals(cervejaria, rotuloDTO.cervejaria);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, estilo, teorAlcoolico, cervejaria);
+    }
+
+    @Override
+    public String toString() {
+        return "RotuloDTO{" +
+                "nome='" + nome + '\'' +
+                ", estilo='" + estilo + '\'' +
+                ", teorAlcoolico=" + teorAlcoolico +
+                ", cervejaria='" + cervejaria + '\'' +
+                '}';
     }
 }

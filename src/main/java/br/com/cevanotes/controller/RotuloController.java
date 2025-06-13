@@ -25,7 +25,7 @@ public class RotuloController {
             var id = parseIdParam(ctx);
             ctx.json(service.buscarPorId(id));
         });
-        app.post(ROTULOS_PATH, ctx -> {
+        app.post(ROTULOS_PATH,  ctx -> {
             RotuloDTO dto = ctx.bodyValidator(RotuloDTO.class)
                     .check(r -> r.getNome() != null && !r.getNome().isBlank(), "Nome é obrigatório!")
                     .check(r -> r.getEstilo() != null && !r.getEstilo().isBlank(), "Estilo da cerveja é obrigatório!")
